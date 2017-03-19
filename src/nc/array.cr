@@ -38,10 +38,18 @@ module NC
       {1}
     end
 
-    def [](*indices)
+    # Returns element on given index
+    def [](*indices) : T
       @data[indices_to_pos(indices)]
     end
 
+    # Returns sub-array.
+    # sub-array's dimension should be at least 1.
+    #
+    # ```
+    #   a = NC::Array.new([1,2, 3,4, 5,6, 7,8, 9,10, 11,12], shape: {2, 3, 2})
+    #   a.sub(1, 0) # => [7, 8]
+    # ```
     def sub(*indices) : Array(T)
       raise ArgumentError.new("Dimension out of boundary") if indices.size >= ndim
       total = @size
